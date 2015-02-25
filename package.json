@@ -1,7 +1,7 @@
 {
   "name": "redis-streams",
-  "version": "1.0.0",
-  "description": "Extends the noe redis client to support streaming functions.",
+  "version": "1.0.1",
+  "description": "Extends the node redis client to support streaming functions.",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec --bail --check-leaks test/",
