@@ -1,0 +1,33 @@
+{
+  "name": "redis-streams",
+  "version": "1.0.0",
+  "description": "Extends the noe redis client to support streaming functions.",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha --reporter spec --bail --check-leaks test/",
+    "test-cov": "istanbul cover node_modules/mocha/bin/_mocha -- --reporter dot --check-leaks test/",
+    "test-travis": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- --reporter spec --check-leaks test/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/4front/redis-streams"
+  },
+  "keywords": [
+    "redis",
+    "streams",
+    "pipe",
+    "cache"
+  ],
+  "author": "David Von Lehman",
+  "license": "MIT",
+  "dependencies": {
+    "redis": "^0.12.1",
+    "redis-rstream": "^0.1.2",
+    "redis-wstream": "^0.2.5",
+    "through2": "^0.6.3"
+  },
+  "devDependencies": {
+    "istanbul": "^0.3.6",
+    "mocha": "^2.1.0"
+  }
+}
