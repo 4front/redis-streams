@@ -7,13 +7,21 @@
 
 Extends the official [node_redis](https://www.npmjs.com/package/redis) client with additional functionality to support streaming data into and out of Redis avoiding buffering the entire contents in memory. The real work is powered by the [redis-rstream](https://www.npmjs.com/package/redis-rstream) and [redis-wstream](https://www.npmjs.com/package/redis-wstream) by [@jeffbski](https://github.com/jeffbski).
 
+## Installation
+```
+npm install redis-streams
+```
+
+## Usage
 Simply require `redis-streams` and the `RedisClient` prototype receives two additional functions: 
 
 __`readStream`__ Get a [Readable stream](http://nodejs.org/api/stream.html#stream_class_stream_readable) from redis. 
 
 __`writeThrough`__ Write to redis and pass the stream through. Useful when say caching an http response as it is being piped to the response.
 
-## Caching Proxy
+### Caching Proxy
+
+A canonical use case is a caching proxy. 
 
 ```js
 var redis = require('redis').createClient();
@@ -28,7 +36,7 @@ app.get('/cache/:key', function(req, res, next) {
 			return redis.readStream(req.params.key).pipe(res);		
 		// Cache the remote http call for 60 seconds
 		request.get('http://somewhere.com/' + req.params.key)
-			.pipe(redisClient.writeThrough(req.params.key, 60)
+			.pipe(redis.writeThrough(req.params.key, 60)
 			.pipe(res);
 	});
 });
