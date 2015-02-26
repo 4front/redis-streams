@@ -1,6 +1,6 @@
 {
   "name": "redis-streams",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Extends the node redis client to support streaming functions.",
   "main": "index.js",
   "scripts": {

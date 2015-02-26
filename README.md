@@ -2,8 +2,6 @@
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
-[![Build Status][travis-image]][travis-url]
-[![Test Coverage][coveralls-image]][coveralls-url]
 
 Extends the official [node_redis](https://www.npmjs.com/package/redis) client with additional functionality to support streaming data into and out of Redis avoiding buffering the entire contents in memory. The real work is powered by the [redis-rstream](https://www.npmjs.com/package/redis-rstream) and [redis-wstream](https://www.npmjs.com/package/redis-wstream) by [@jeffbski](https://github.com/jeffbski).
 
