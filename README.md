@@ -15,9 +15,11 @@ npm install redis-streams
 ## Usage
 Simply require `redis-streams` and the `RedisClient` prototype receives two additional functions: 
 
-__`readStream`__ Get a [Readable stream](http://nodejs.org/api/stream.html#stream_class_stream_readable) from redis. 
+__`readStream(key)`__  - get a [Readable stream](http://nodejs.org/api/stream.html#stream_class_stream_readable) from redis. 
 
-__`writeThrough`__ Write to redis and pass the stream through. Useful when say caching an http response as it is being piped to the response.
+__`writeThrough(key, maxAge)`__  - write to redis and pass the stream through.
+
+See the [unit tests](https://github.com/4front/redis-streams/blob/master/test/redis.js) for usage examples.
 
 ### Caching Proxy
 
