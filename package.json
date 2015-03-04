@@ -18,7 +18,7 @@
     "pipe",
     "cache"
   ],
-  "author": "David Von Lehman",
+  "author": "David Von Lehman (https://github.com/dvonlehman)",
   "license": "MIT",
   "dependencies": {
     "lodash": "^3.3.1",
