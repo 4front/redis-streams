@@ -1,11 +1,11 @@
 var redis = require('redis');
 var stream = require('stream');
 var assert = require('assert');
-
-require('..');
+require('..')(redis);
 
 describe('redis-streams', function() {
   var redisClient = redis.createClient();
+
   var key = "redis-stream-test-key";
 
   afterEach(function() {

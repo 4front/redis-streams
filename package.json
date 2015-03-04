@@ -1,7 +1,7 @@
 {
   "name": "redis-streams",
-  "version": "1.0.3",
-  "description": "Extends the node redis client to support streaming functions.",
+  "version": "1.0.4",
+  "description": "Extends the node redis client with readStream and writeThrough functions.",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec --bail --check-leaks test/",
@@ -21,6 +21,7 @@
   "author": "David Von Lehman",
   "license": "MIT",
   "dependencies": {
+    "lodash": "^3.3.1",
     "redis": "^0.12.1",
     "redis-rstream": "^0.1.2",
     "redis-wstream": "^0.2.5",

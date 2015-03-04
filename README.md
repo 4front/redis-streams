@@ -2,6 +2,8 @@
 
 [![NPM Version][npm-image]][npm-url]
 [![NPM Downloads][downloads-image]][downloads-url]
+[![Build Status][travis-image]][travis-url]
+[![Test Coverage][coveralls-image]][coveralls-url]
 
 Extends the official [node_redis](https://www.npmjs.com/package/redis) client with additional functionality to support streaming data into and out of Redis avoiding buffering the entire contents in memory. The real work is powered by the [redis-rstream](https://www.npmjs.com/package/redis-rstream) and [redis-wstream](https://www.npmjs.com/package/redis-wstream) by [@jeffbski](https://github.com/jeffbski).
 
@@ -11,22 +13,37 @@ npm install redis-streams
 ```
 
 ## Usage
-Simply require `redis-streams` and the `RedisClient` prototype receives two additional functions: 
+
+```js
+var redis = require('redis');
+require('redis-streams')(redis);
+```
+
+This will extend the `RedisClient` prototype with two additional functions:
 
 __`readStream(key)`__  - get a [Readable stream](http://nodejs.org/api/stream.html#stream_class_stream_readable) from redis. 
 
 __`writeThrough(key, maxAge)`__  - write to redis and pass the stream through.
 
-See the [unit tests](https://github.com/4front/redis-streams/blob/master/test/redis.js) for usage examples.
+```js
+var redis = require('redis');
+require('redis-streams')(redis);
 
-### Caching Proxy
+redis.createClient().readStream(key)
+	.pipe(process.stdout);
+```
+See the [unit tests](https://github.com/4front/redis-streams/blob/master/test/redis.js) for additional usage examples.
 
-A canonical use case is a caching proxy. 
+
+#### Caching Proxy
+You could also implement a Connect caching proxy middleware. 
 
 ```js
-var redis = require('redis').createClient();
+var redis = require('redis');
 var request = require('request');
-require('redis-streams');
+require('redis-streams')(redis);
+
+var redisClient = redis.createClient();
 
 app.get('/cache/:key', function(req, res, next) {
 	redis.exists(req.params.key, function(err, exists) {
@@ -36,11 +53,13 @@ app.get('/cache/:key', function(req, res, next) {
 			return redis.readStream(req.params.key).pipe(res);		
 		// Cache the remote http call for 60 seconds
 		request.get('http://somewhere.com/' + req.params.key)
-			.pipe(redis.writeThrough(req.params.key, 60)
+			.pipe(redis.writeThrough(req.params.key, 60))
 			.pipe(res);
 	});
 });
 ```
+
+The [express-api-proxy](https://github.com/4front/express-api-proxy) module utilizes `redis-streams` for this purpose, but in a more advanced way.
 
 [npm-image]: https://img.shields.io/npm/v/redis-streams.svg?style=flat
 [npm-url]: https://npmjs.org/package/redis-streams
