@@ -49,8 +49,9 @@ app.get('/cache/:key', function(req, res, next) {
 	redis.exists(req.params.key, function(err, exists) {
 	   if (err) return next(err);
 	   
-		if (exists === 1)
-			return redis.readStream(req.params.key).pipe(res);		
+		if (exists)
+			return redis.readStream(req.params.key).pipe(res);
+
 		// Cache the remote http call for 60 seconds
 		request.get('http://somewhere.com/' + req.params.key)
 			.pipe(redis.writeThrough(req.params.key, 60))

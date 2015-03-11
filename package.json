@@ -1,6 +1,6 @@
 {
   "name": "redis-streams",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Extends the node redis client with readStream and writeThrough functions.",
   "main": "index.js",
   "scripts": {
