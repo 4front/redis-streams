@@ -1,7 +1,7 @@
 {
   "name": "redis-streams",
-  "version": "1.0.5",
-  "description": "Extends the node redis client with readStream and writeThrough functions.",
+  "version": "1.0.6",
+  "description": "Extends the node redis client with readStream, writeStream, and writeThrough functions.",
   "main": "index.js",
   "scripts": {
     "test": "mocha --reporter spec --bail --check-leaks test/",
@@ -29,6 +29,8 @@
   },
   "devDependencies": {
     "istanbul": "^0.3.6",
-    "mocha": "^2.1.0"
+    "lorem-ipsum": "^1.0.1",
+    "mocha": "^2.1.0",
+    "simple-bufferstream": "^1.0.0"
   }
 }

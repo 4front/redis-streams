@@ -21,7 +21,9 @@ require('redis-streams')(redis);
 
 This will extend the `RedisClient` prototype with two additional functions:
 
-__`readStream(key)`__  - get a [Readable stream](http://nodejs.org/api/stream.html#stream_class_stream_readable) from redis. 
+__`readStream(key)`__  - get a [Readable stream](http://nodejs.org/api/stream.html#stream_class_stream_readable) from redis.
+
+__`writeStream(key, maxAge)`__ - get a [Writable stream](https://nodejs.org/api/stream.html#stream_class_stream_writable) from redis.
 
 __`writeThrough(key, maxAge)`__  - write to redis and pass the stream through.
 
@@ -29,14 +31,24 @@ __`writeThrough(key, maxAge)`__  - write to redis and pass the stream through.
 var redis = require('redis');
 require('redis-streams')(redis);
 
-redis.createClient().readStream(key)
+var redisClient = redis.createClient();
+
+redisClient.readStream(key)
+	.pipe(process.stdout);
+
+fs.createReadStream('file.txt')
+	.pipe(redisClient.writeStream(key, maxAge))
+	.on('finish', done);
+
+fs.createReadStream('file.txt')
+	.pipe(redisClient.writeThrough(key, maxAge))
 	.pipe(process.stdout);
 ```
 See the [unit tests](https://github.com/4front/redis-streams/blob/master/test/redis.js) for additional usage examples.
 
 
 #### Caching Proxy
-You could also implement a Connect caching proxy middleware. 
+You could also implement a Connect caching proxy middleware.
 
 ```js
 var redis = require('redis');
@@ -48,7 +60,7 @@ var redisClient = redis.createClient();
 app.get('/cache/:key', function(req, res, next) {
 	redis.exists(req.params.key, function(err, exists) {
 	   if (err) return next(err);
-	   
+
 		if (exists)
 			return redis.readStream(req.params.key).pipe(res);
 
@@ -70,7 +82,3 @@ The [express-api-proxy](https://github.com/4front/express-api-proxy) module util
 [coveralls-url]: https://coveralls.io/r/4front/redis-streams?branch=master
 [downloads-image]: https://img.shields.io/npm/dm/redis-streams.svg?style=flat
 [downloads-url]: https://npmjs.org/package/redis-streams
-
-
-
-

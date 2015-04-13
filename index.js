@@ -25,12 +25,23 @@ module.exports = function(redis) {
           // to ensure that the key was renamed to the actual value.
           self.expire(key, maxAge);
 
-          // Delete the temp key in case it is still there. This shouldn't be necessary, 
+          // Delete the temp key in case it is still there. This shouldn't be necessary,
           // the redis-wstream is supposed to rename the key
           self.del(key + tempSuffix);
           cb();
         });
       });
+    },
+
+    writeStream: function(key, maxAge) {
+      var self = this;
+      var tempSuffix = crypto.randomBytes(15).toString('base64');
+
+      return redisWStream(this, key, {tempKeySuffix: tempSuffix})
+        .on('finish', function() {
+          self.expire(key, maxAge);
+          self.del(key + tempSuffix);
+        });
     },
 
     readStream: function(key) {
