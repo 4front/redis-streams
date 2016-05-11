@@ -1,6 +1,6 @@
 {
   "name": "redis-streams",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Extends the node redis client with readStream, writeStream, and writeThrough functions.",
   "main": "index.js",
   "scripts": {
@@ -21,16 +21,15 @@
   "author": "David Von Lehman (https://github.com/dvonlehman)",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^3.3.1",
-    "redis": "^0.12.1",
+    "redis": "^2.6.0-2",
     "redis-rstream": "^0.1.2",
     "redis-wstream": "^0.2.5",
-    "through2": "^0.6.3"
+    "through2": "^2.0.1"
   },
   "devDependencies": {
-    "istanbul": "^0.3.6",
-    "lorem-ipsum": "^1.0.1",
-    "mocha": "^2.1.0",
+    "istanbul": "^0.4.3",
+    "lorem-ipsum": "^1.0.3",
+    "mocha": "^2.4.5",
     "simple-bufferstream": "^1.0.0"
   }
 }
