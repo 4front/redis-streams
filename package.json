@@ -22,8 +22,8 @@
   "license": "MIT",
   "dependencies": {
     "redis": "^2.6.0-2",
-    "redis-rstream": "^0.1.2",
-    "redis-wstream": "^0.2.5",
+    "redis-rstream": "0.1.2",
+    "redis-wstream": "0.2.5",
     "through2": "^2.0.1"
   },
   "devDependencies": {
